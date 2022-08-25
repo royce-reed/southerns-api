@@ -6,6 +6,7 @@ import { errorHandler } from './middleware/errorMiddleware.js';
 import users from './routes/users.js';
 import mail from './routes/mailer.js';
 import events from './routes/events.js';
+import menu from './routes/menu.js';
 
 const PORT = process.env.PORT || 3003;
 const app = express();
@@ -20,6 +21,7 @@ app.use(helmet());
 app.use('/api/users', users);
 app.use('/api/mailer', mail);
 app.use('/api/events', events);
+app.use('/api/menu', menu);
 
 
 app.use(errorHandler);

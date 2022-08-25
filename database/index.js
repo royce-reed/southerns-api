@@ -32,10 +32,20 @@ const eventSchema = new mongoose.Schema({
 
 }, { timestamps: true });
 
+const menuSchema = new mongoose.Schema({
+  name: { type: String, required: [true, 'Name is required'] },
+  description: { type: String },
+  price: { type: Number, required: [true, 'Price is required'] },
+  image: { type: String },
+  featured: { type: Boolean, default: false },
+  allergens: { type: String },
+}, { timestamps: true });
+
 
 const User = mongoose.model('User', userSchema);
 const Contact = mongoose.model('Contact', contactSchema);
 const Event = mongoose.model('Event', eventSchema);
+const Menu = mongoose.model('Menu', menuSchema);
 
 
-export { mongoose, User, Contact, Event };
+export { mongoose, User, Contact, Event, Menu };
