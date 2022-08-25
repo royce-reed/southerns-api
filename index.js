@@ -5,6 +5,7 @@ import { mongoose } from './database/index.js';
 import { errorHandler } from './middleware/errorMiddleware.js';
 import users from './routes/users.js';
 import mail from './routes/mailer.js';
+import events from './routes/events.js';
 
 const PORT = process.env.PORT || 3003;
 const app = express();
@@ -18,6 +19,7 @@ app.use(helmet());
 // routes
 app.use('/api/users', users);
 app.use('/api/mailer', mail);
+app.use('/api/events', events);
 
 
 app.use(errorHandler);

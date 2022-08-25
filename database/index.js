@@ -16,6 +16,7 @@ const contactSchema = new mongoose.Schema({
   name: String,
   email: String,
   phone: String,
+  phoneUnformatted: Number,
   message: { type: String, maxLength: 510 },
 }, { timestamps: true });
 
@@ -24,7 +25,7 @@ const eventSchema = new mongoose.Schema({
   address: { type: String, required: [true, 'Address is required'] },
   instagramHandle: { type: String },
   description: { type: String },
-  // image: { type: String },
+  image: { type: String },
   dayOfWeek: { type: String, required: [true, 'Day is required'] },
   timeStart: { type: String, required: [true, 'Start time is required'] },
   timeEnd: { type: String, required: [true, 'End Time is required'] },

@@ -31,11 +31,12 @@ const sendMail = asyncHandler(async (req, res) => {
     <h3>Message</h3>
     <p>${message}</p>
   `;
-
+  // console.log(phoneNumber, +phone, phone, 'string', 666);
   Contact.create({
     name,
     email,
     phone: phoneNumber,
+    // phoneUnformatted: +phone,
     message,
   })
     .then(() => {
@@ -66,7 +67,7 @@ const sendMail = asyncHandler(async (req, res) => {
 // @access Private
 const getAllMail = asyncHandler(async (req, res) => {
   const contacts = await Contact.find();
-  res.status(200).json(contacts);
+  res.status(200).json({message: "Success!", contacts});
 })
 
 export { sendMail, getAllMail };
