@@ -2,9 +2,9 @@ import asyncHandler from 'express-async-handler';
 import { Menu } from '../database/index.js';
 
 const createMenuItem = asyncHandler(async (req, res) => {
-  const { name, description, price, category, image } = req.body;
+  const { name, description, price, featured, image, allergens } = req.body;
 
-  if (!name || !description || !price || !category || !image) {
+  if (!name || !price ) {
     res.status(400)
     throw new Error('Please enter all required fields');
   }
@@ -75,9 +75,9 @@ const getMenuItem = asyncHandler(async (req, res) => {
 });
 
 const updateMenuItem = asyncHandler(async (req, res) => {
-  const { name, description, price, category, image } = req.body;
-  console.log({body: req.body},{params: req.params});
-  if (!name || !description || !price || !category || !image) {
+  const { name, description, price, featured, allergens, image } = req.body;
+
+  if (!name || !price) {
     res.status(400)
     throw new Error('Please enter all required fields');
   }

@@ -61,7 +61,6 @@ const getEvents = asyncHandler(async (req, res) => {
 
 const updateEvent = asyncHandler(async (req, res) => {
   const { venue, address, instagramHandle, description, day: dayOfWeek, start: timeStart, end: timeEnd, image } = req.body;
-  console.log({body: req.body},{params: req.params});
 
   if (!venue || !address || !dayOfWeek || !timeStart || !timeEnd) {
     res.status(400);

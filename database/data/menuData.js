@@ -1,18 +1,3 @@
-/*
-Southerns Chicken Sandwich: 
-Boneless Thigh, yuzu aioli, slaw, house-made pickle on a potato bun 10$ 
-
-Tenders: 3 jumbo tenders served with Southerns dipping sauce 
-9$ 
-
-Adobo Cracklins: Cracklins fries to perfection then seasoned and tossed in an Adobo Sauce topped with Garlic Peanut topping. 
-
-Fries: crinkle cut fries 5$ 
-
-Phuket Fries: Crinkle Cut fries served with our Phuket Aioli 
-*/
-
-
 const menu = [
   {
     name: 'Southerns Chicken Sandwich',
@@ -54,6 +39,6 @@ const menu = [
     featured: false,
     allergens: '',
   }
-]
+];
 
 export default menu;

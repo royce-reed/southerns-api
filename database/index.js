@@ -26,7 +26,7 @@ const eventSchema = new mongoose.Schema({
   instagramHandle: { type: String },
   description: { type: String },
   image: { type: String },
-  dayOfWeek: { type: String, required: [true, 'Day is required'] },
+  dayOfWeek: { type: String, /*required: [true, 'Day is required']*/ },
   timeStart: { type: String, required: [true, 'Start time is required'] },
   timeEnd: { type: String, required: [true, 'End Time is required'] },
 
@@ -37,8 +37,8 @@ const menuSchema = new mongoose.Schema({
   description: { type: String },
   price: { type: Number, required: [true, 'Price is required'] },
   image: { type: String },
-  featured: { type: Boolean, default: false },
   allergens: { type: String },
+  featured: { type: Boolean, default: false },
 }, { timestamps: true });
 
 
