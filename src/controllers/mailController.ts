@@ -1,6 +1,6 @@
-import { Contact } from "../database/index.js";
-import asyncHandler from 'express-async-handler';
-import nodemailer from 'nodemailer';
+import { Contact } from "../database";
+import asyncHandler from "express-async-handler";
+import nodemailer from "nodemailer";
 const { ADDRESS, KEY } = process.env;
 
 // @desc Send mail from contact form
@@ -8,7 +8,7 @@ const { ADDRESS, KEY } = process.env;
 // @access Public
 const sendMail = asyncHandler(async (req, res) => {
   const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    service: "gmail",
     auth: {
       user: ADDRESS,
       pass: KEY,
@@ -43,22 +43,22 @@ const sendMail = asyncHandler(async (req, res) => {
       const data = {
         from: `"Southerns Website -- ${name}" <${ADDRESS}>`,
         to: ADDRESS,
-        subject: 'Email from Contact Form -- Southerns Website',
+        subject: "Email from Contact Form -- Southerns Website",
         html: output,
       };
       transporter.sendMail(data, (err, info) => {
         if (err) {
           console.log(err);
-          res.send('An Error occurred!');
+          res.send("An Error occurred!");
         } else {
           console.log(info);
         }
       });
-      res.status(201).send('Message sent!');
+      res.status(201).send("Message sent!");
     })
-    .catch((err) => {
+    .catch(err => {
       console.error(err);
-      res.status(500).send('Server Error: ' + err);
+      res.status(500).send("Server Error: " + err);
     });
 });
 
@@ -67,8 +67,7 @@ const sendMail = asyncHandler(async (req, res) => {
 // @access Private
 const getAllMail = asyncHandler(async (req, res) => {
   const contacts = await Contact.find();
-  res.status(200).json({message: "Success!", contacts});
-})
+  res.status(200).json({ message: "Success!", contacts });
+});
 
 export { sendMail, getAllMail };
-

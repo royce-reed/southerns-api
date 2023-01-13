@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv/config";
 
-const { MONGO_URI } = process.env;
+const { MONGO_URI } = process.env as Record<string, string>;
 
 mongoose.connect(MONGO_URI);
 console.log("✨ Connected to MongoDB");

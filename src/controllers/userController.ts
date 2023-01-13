@@ -1,7 +1,7 @@
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
-import asyncHandler from 'express-async-handler';
-import { User } from '../database/index.js';
+import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
+import asyncHandler from "express-async-handler";
+import { User } from "../database/index.js";
 
 // @desc Register new user
 // @route POST /api/users/;
@@ -10,15 +10,15 @@ const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
 
   if (!name || !email || !password) {
-    res.status(400)
-    throw new Error('Please enter all fields');
+    res.status(400);
+    throw new Error("Please enter all fields");
   }
 
   // Check for existing user
   const userExists = await User.findOne({ email });
   if (userExists) {
-    res.status(400)
-    throw new Error('User already exists');
+    res.status(400);
+    throw new Error("User already exists");
   }
 
   // Hash password
@@ -29,7 +29,7 @@ const registerUser = asyncHandler(async (req, res) => {
   const user = await User.create({
     name,
     email,
-    password: hashedPassword
+    password: hashedPassword,
   });
 
   if (user) {
@@ -37,13 +37,12 @@ const registerUser = asyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
-      token: generateToken(user)
-    })
+      token: generateToken(user),
+    });
   } else {
-    res.status(400)
-    throw new Error('Invalid user data');
+    res.status(400);
+    throw new Error("Invalid user data");
   }
-
 });
 
 // @desc Authenticate user
@@ -52,7 +51,7 @@ const registerUser = asyncHandler(async (req, res) => {
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
-   // Check for user email
+  // Check for user email
   const user = await User.findOne({ email });
 
   if (user && (await bcrypt.compare(password, user.password))) {
@@ -63,12 +62,12 @@ const loginUser = asyncHandler(async (req, res) => {
       token: generateToken(user._id),
     });
   } else {
-    if ( email !== user.email ) {
-      res.status(400)
-      throw new Error('Invalid email');
+    if (email !== user.email) {
+      res.status(400);
+      throw new Error("Invalid email");
     } else {
-      res.status(400)
-      throw new Error('Invalid password');
+      res.status(400);
+      throw new Error("Invalid password");
     }
     // res.status(400);
     // throw new Error('Invalid credentials');
@@ -83,10 +82,10 @@ const getMe = asyncHandler(async (req, res) => {
   res.status(200).json(req.user);
 });
 // Generate JWT
-const generateToken = (id) => {
+const generateToken = id => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: '30d',
-  })
-}
+    expiresIn: "30d",
+  });
+};
 
 export { registerUser, loginUser, getMe };
