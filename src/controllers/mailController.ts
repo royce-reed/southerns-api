@@ -1,11 +1,15 @@
-import { Contact } from "../database";
 import asyncHandler from "express-async-handler";
 import nodemailer from "nodemailer";
-const { ADDRESS, KEY } = process.env;
+import Contact from "../database/models/contact.model";
+import { ADDRESS, KEY } from "../config";
+// const { ADDRESS, KEY } = process.env;
+// console.log(ADDRESS, KEY);
 
-// @desc Send mail from contact form
-// @route POST /api/mailer/send;
-// @access Public
+/**
+ * @desc Send mail from contact form
+ * @route POST /api/mailer/send
+ * @access Public
+ */
 const sendMail = asyncHandler(async (req, res) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -31,7 +35,7 @@ const sendMail = asyncHandler(async (req, res) => {
     <h3>Message</h3>
     <p>${message}</p>
   `;
-  // console.log(phoneNumber, +phone, phone, 'string', 666);
+
   Contact.create({
     name,
     email,
@@ -62,9 +66,11 @@ const sendMail = asyncHandler(async (req, res) => {
     });
 });
 
-// @desc Get all mail from contact forms
-// @route GET /api/users/inbox;
-// @access Private
+/**
+ * @desc Get all mail from contact forms
+ * @route GET /api/mailer/inbox
+ * @access Private
+ */
 const getAllMail = asyncHandler(async (req, res) => {
   const contacts = await Contact.find();
   res.status(200).json({ message: "Success!", contacts });

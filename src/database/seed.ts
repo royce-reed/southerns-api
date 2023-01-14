@@ -1,7 +1,6 @@
-import { Menu } from "./index.js";
-import menu from "./data/menuData.js";
-import { Event } from "./index.js";
-import events from "./data/eventData.js";
+import { Menu, Event } from "./index";
+import menu from "./data/menuData";
+import events from "./data/eventData";
 
 const seedMongo = async () => {
   try {
@@ -25,7 +24,7 @@ const seedMongo = async () => {
       "\x1b[32m",
       `\nDatabase (MongoDB): ${result_1.length} events successfully seeded!`
     );
-    return process.exit(code);
+    return process.exit(code as unknown as number);
   } catch (err) {
     return console.log("\x1b[31m", `\nDatabase (MongoDB): ${err}`);
   }

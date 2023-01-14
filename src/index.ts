@@ -1,8 +1,8 @@
 import express from "express";
 import morgan from "morgan";
 import helmet from "helmet";
-import { mongoose } from "./database";
-import { errorHandler } from "./middleware/errorMiddleware";
+import mongoose from "./database";
+import errorHandler from "./middleware/errorMiddleware";
 import users from "./routes/users";
 import mail from "./routes/mailer";
 import events from "./routes/events";
@@ -25,6 +25,10 @@ app.use("/api/menu", menu);
 
 app.use(errorHandler);
 
+mongoose.connection.once("open", () => {
+  console.log("✨ Connected to MongoDB");
+});
 app.listen(PORT, () => {
   console.log(`🚀 Listening on Port:${PORT}`);
-});
+})
+

@@ -8,6 +8,7 @@ import {
 import { protect } from "../middleware/authMiddleware";
 const events = express();
 
+
 events.post("/", protect, createEvent);
 events.get("/", protect, getEvents);
 events.put("/:id", protect, updateEvent);

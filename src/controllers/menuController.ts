@@ -1,6 +1,12 @@
 import asyncHandler from "express-async-handler";
-import { Menu } from "../database/index.js";
+import Menu from "../database/models/menu.model";
 
+
+/**
+ * @desc Create a new menu item
+ * @route POST /api/menu
+ * @access Private
+ */
 const createMenuItem = asyncHandler(async (req, res) => {
   const { name, description, price, featured, image, allergens } = req.body;
 
@@ -34,10 +40,15 @@ const createMenuItem = asyncHandler(async (req, res) => {
   }
 });
 
+/**
+ * @desc Get all menu items
+ * @route GET /api/menu
+ * @access Public?
+ */
 const getMenuItems = asyncHandler(async (req, res) => {
-  let menuItems = await Menu.find();
+  let menuItems: any = await Menu.find();
 
-  menuItems = menuItems.map(menuItem => ({
+  menuItems = menuItems.map((menuItem: any) => ({
     id: menuItem._id,
     name: menuItem.name,
     description: menuItem.description,
@@ -55,6 +66,11 @@ const getMenuItems = asyncHandler(async (req, res) => {
   }
 });
 
+/**
+ * @desc Get a single menu item
+ * @route GET /api/menu/:id
+ * @access Private
+ */
 const getMenuItem = asyncHandler(async (req, res) => {
   const menuItem = await Menu.findById(req.params.id);
 
@@ -74,6 +90,11 @@ const getMenuItem = asyncHandler(async (req, res) => {
   }
 });
 
+/**
+ * @desc Update a menu item
+ * @route PUT /api/menu/:id
+ * @access Private
+ */
 const updateMenuItem = asyncHandler(async (req, res) => {
   const { name, description, price, featured, allergens, image } = req.body;
 
@@ -107,6 +128,11 @@ const updateMenuItem = asyncHandler(async (req, res) => {
   }
 });
 
+/**
+ * @desc Delete a menu item
+ * @route DELETE /api/menu/:id
+ * @access Private
+ */
 const deleteMenuItem = asyncHandler(async (req, res) => {
   const menuItem = await Menu.findByIdAndDelete(req.params.id);
 

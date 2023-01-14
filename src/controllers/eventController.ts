@@ -1,7 +1,11 @@
 import asyncHandler from "express-async-handler";
-import { Event } from "../database";
-import { EventItem } from "../interfaces/EventItem";
+import Event from "../database/models/event.model";
 
+/**
+ * @desc Create a new event
+ * @route POST /api/events
+ * @access Private
+ */
 const createEvent = asyncHandler(async (req, res) => {
   const {
     venue,
@@ -45,10 +49,15 @@ const createEvent = asyncHandler(async (req, res) => {
   }
 });
 
+/**
+ * @desc Get all events
+ * @route GET /api/events
+ * @access Private
+ */
 const getEvents = asyncHandler(async (req, res) => {
-  let events: EventItem = await Event.find();
+  let events: any = await Event.find();
 
-  events = events.map(event => ({
+  events = events.map((event: any) => ({
     id: event._id,
     venue: event.venue,
     address: event.address,
@@ -68,6 +77,11 @@ const getEvents = asyncHandler(async (req, res) => {
   }
 });
 
+/**
+ * @desc Update an event
+ * @route PUT /api/events/:id
+ * @access Private
+ */
 const updateEvent = asyncHandler(async (req, res) => {
   const {
     venue,
@@ -114,6 +128,11 @@ const updateEvent = asyncHandler(async (req, res) => {
   }
 });
 
+/**
+ * @desc Delete an event
+ * @route DELETE /api/events/:id
+ * @access Private
+ */
 const deleteEvent = asyncHandler(async (req, res) => {
   const event = await Event.findByIdAndDelete(req.params.id);
 
